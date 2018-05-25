@@ -58,6 +58,8 @@
 				<bean id="gr1" class="dev.paie.entite.Grade">
 					<property name="nbHeuresBase" value="151.67"></property>
 					<property name="tauxBase" value="11.0984"></property>
+					<property name="id" value="1"></property>
+					<property name="code" value="MED"></property>
 				</bean>
 
 

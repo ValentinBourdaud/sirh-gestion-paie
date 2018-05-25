@@ -12,27 +12,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import dev.paie.config.ServicesConfig;
 import dev.paie.entite.BulletinSalaire;
 import dev.paie.entite.ResultatCalculRemuneration;
+import dev.paie.util.PaieUtils;
 
-@ContextConfiguration(classes = { ServicesConfig.class })
+@ContextConfiguration(classes = { CalculerRemunerationServiceSimple.class, PaieUtils.class, ServicesConfig.class })
 @RunWith(SpringRunner.class)
 public class CalculerRemunerationServiceSimpleTest {
 
+	@Autowired
+	private CalculerRemunerationService remunerationService;
 
-    @Autowired 
-    private CalculerRemunerationService remunerationService;
-    
-    @Autowired 
-    private BulletinSalaire bulletinSalaire;;
-    
-   
-    @Test
-    public void test_calculer() {
+	@Autowired
+	private BulletinSalaire bulletinSalaire;;
 
-    	ResultatCalculRemuneration resultat = remunerationService.calculer(bulletinSalaire);
-        assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));
-        assertThat(resultat.getTotalRetenueSalarial(), equalTo("517.08"));
-        assertThat(resultat.getTotalCotisationsPatronales(), equalTo("1096.13"));
-        assertThat(resultat.getNetImposable(), equalTo("2166.22"));
-        assertThat(resultat.getNetAPayer(), equalTo("2088.41"));
-    }
+	@Test
+	public void test_calculer() {
+
+		ResultatCalculRemuneration resultat = remunerationService.calculer(bulletinSalaire);
+		assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));
+		assertThat(resultat.getTotalRetenueSalarial(), equalTo("517.08"));
+		assertThat(resultat.getTotalCotisationsPatronales(), equalTo("1096.13"));
+		assertThat(resultat.getNetImposable(), equalTo("2166.22"));
+		assertThat(resultat.getNetAPayer(), equalTo("2088.41"));
+	}
 }
