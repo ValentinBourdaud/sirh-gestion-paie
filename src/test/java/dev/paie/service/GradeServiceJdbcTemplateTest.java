@@ -13,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import dev.paie.config.DataSourceMySQLConfig;
+import dev.paie.config.H2Config;
+import dev.paie.config.JddConfig;
 import dev.paie.config.ServicesConfig;
 import dev.paie.entite.Grade;
 
-@ContextConfiguration(classes = { DataSourceMySQLConfig.class, ServicesConfig.class })
+@ContextConfiguration(classes = { H2Config.class, JddConfig.class, ServicesConfig.class })
 @RunWith(SpringRunner.class)
 public class GradeServiceJdbcTemplateTest {
 
@@ -25,23 +26,23 @@ public class GradeServiceJdbcTemplateTest {
 	private GradeService gradeService;
 
 	@Autowired
-	private Grade grade1;;
+	private Grade grade;
 
 	@Test
 	public void test_sauvegarder_lister_mettre_a_jour() {
 
-		gradeService.sauvegarder(grade1);
+		gradeService.sauvegarder(grade);
 		List<Grade> liste = gradeService.lister();
 
-		assertThat(gradeService.lister().contains(grade1));
+		assertThat(gradeService.lister().contains(grade));
 
 		assertThat(liste.get(0).getId(), equalTo(1));
 		assertThat(liste.get(0).getCode(), equalTo("MED"));
 		assertThat(liste.get(0).getNbHeuresBase(), equalTo(new BigDecimal("151.67")));
 		assertThat(liste.get(0).getTauxBase(), equalTo(new BigDecimal("11.0984")));
 
-		grade1.setCode("CRO");
-		gradeService.mettreAJour(grade1);
+		grade.setCode("CRO");
+		gradeService.mettreAJour(grade);
 		liste = gradeService.lister();
 		assertThat(liste.get(0).getCode(), equalTo("CRO"));
 
