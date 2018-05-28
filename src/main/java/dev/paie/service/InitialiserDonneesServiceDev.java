@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dev.paie.entite.Cotisation;
 import dev.paie.entite.Entreprise;
@@ -41,6 +42,7 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	private ProfilRemunerationRepository profilRemunerationRepository;
 
 	@Override
+	@Transactional
 	public void initialiser() {
 
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("init_config.xml");
@@ -53,13 +55,15 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		for (Grade grade : grades) {
 			gradeRepository.save(grade);
 		}
-		Collection<ProfilRemuneration> profilRemunerations = ctx.getBeansOfType(ProfilRemuneration.class).values();
-		for (ProfilRemuneration profilRemuneration : profilRemunerations) {
-			profilRemunerationRepository.save(profilRemuneration);
-		}
+
 		Collection<Cotisation> cotisations = ctx.getBeansOfType(Cotisation.class).values();
 		for (Cotisation cotisation : cotisations) {
 			cotisationRepository.save(cotisation);
+		}
+
+		Collection<ProfilRemuneration> profilRemunerations = ctx.getBeansOfType(ProfilRemuneration.class).values();
+		for (ProfilRemuneration profilRemuneration : profilRemunerations) {
+			profilRemunerationRepository.save(profilRemuneration);
 		}
 
 		for (int i = 0; i < 12; i++) {

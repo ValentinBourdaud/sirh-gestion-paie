@@ -55,4 +55,8 @@ public class Grade {
 		this.id = id;
 	}
 
+	public String toString() {
+		return this.code;
+	}
+
 }
