@@ -15,8 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import dev.paie.config.H2Config;
 import dev.paie.config.JpaConfig;
 import dev.paie.entite.Cotisation;
+import dev.paie.util.PaieUtils;
 
-@ContextConfiguration(classes = { H2Config.class, JpaConfig.class })
+@ContextConfiguration(classes = { H2Config.class, JpaConfig.class, PaieUtils.class, CotisationServiceJpa.class })
 @RunWith(SpringRunner.class)
 public class CotisationServiceJpaTest {
 
@@ -27,7 +28,7 @@ public class CotisationServiceJpaTest {
 	public void test_sauvegarder_lister_mettre_a_jour() {
 
 		Cotisation cotisation = new Cotisation();
-		cotisation.setId(1);
+		cotisation.setId(null);
 		cotisation.setCode("FR");
 		cotisation.setLibelle("AAA");
 		cotisation.setTauxPatronal(new BigDecimal("15.87"));
