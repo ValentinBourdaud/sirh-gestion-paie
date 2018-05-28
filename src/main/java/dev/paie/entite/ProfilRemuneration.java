@@ -2,16 +2,30 @@ package dev.paie.entite;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@Entity
+@Table(name = "profilRemuneration")
 public class ProfilRemuneration {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
+	@Column
 	private String code;
 
+	@Transient
 	private List<Cotisation> cotisationsNonImposables;
-	
+
+	@Transient
 	private List<Cotisation> cotisationsImposables;
-	
+
+	@Transient
 	private List<Avantage> avantages;
 
 	public Integer getId() {
