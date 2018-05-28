@@ -39,7 +39,7 @@ public class GradeServiceJdbcTemplateTest {
 		assertThat(liste.get(0).getId(), equalTo(1));
 		assertThat(liste.get(0).getCode(), equalTo("MED"));
 		assertThat(liste.get(0).getNbHeuresBase(), equalTo(new BigDecimal("151.67")));
-		assertThat(liste.get(0).getTauxBase(), equalTo(new BigDecimal("11.0984")));
+		assertThat(liste.get(0).getTauxBase(), equalTo(new BigDecimal("11.10")));
 
 		grade.setCode("CRO");
 		gradeService.mettreAJour(grade);
