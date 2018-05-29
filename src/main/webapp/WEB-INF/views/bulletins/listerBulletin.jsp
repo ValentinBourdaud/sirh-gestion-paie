@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <!DOCTYPE html>
 
 <head>
@@ -31,42 +32,39 @@ dist/css/bootstrap.css">
 		</div>
 	</nav>
 
+	
 	<div class="container">
-		<div class="row align-items-start">
-			<div class="col-12">
-				<h1>Créer Bulletin de salaire</h1>
-			</div>
+		<div class="text-center">
+			<h1>Liste des bulletins</h1>
 		</div>
 
-		<form:form method="POST" modelAttribute="bulletin">
-			<div class="form-group">
-				<label for="periode">Periode</label>
-				<form:select path="periode.id" items="${listePeriodes}" itemValue="id" />
-			</div>
+		<a href="creer" class="btn btn-info" role="button"
+			style="margin-bottom: 2%; margin-left: 87%;">Créer un nouveau bulletin</a>
 
-			<div class="form-group">
-				<label for="matricule">Matricule</label>
-				<form:select path="remunerationEmploye.id"
-					items="${listeMatricules}" itemValue="id" itemLabel="matricule" />
-			</div>
-
-
-			<div class="form-group">
-				<label for="primeExceptionnelle">Prime Exceptionnelle</label>
-				<div class="col-4 offset-8">
-					<form:input type="text" class="form-control"
-						path="primeExceptionnelle" placeholder="Prime Exceptionnelle"
-						required="" />
-
-				</div>
-			</div>
-
-			<div class="row justify-content-end">
-				<div class="col-7 offset-5">
-					<button type="submit" class="btn btn-info" id="creer">Créer</button>
-				</div>
-			</div>
-	</form:form>
-	</div>
-</body>
-</html>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="40%;">Date / Heure de création</th>
+					<th>Période</th>
+					<th>Matricule</th>
+					<th>Salaire brut</th>
+					<th>Net Imposable</th>
+					<th>Net à payer</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${bulletins}" var="bulletin">
+					<tr>
+						<td>"${bulletin.key.dateCreation}"</td>
+						<td>"${bulletin.key.periode}"</td>
+						<td>"${bulletin.key.remunerationEmploye.matricule}"</td>
+						<td>"${bulletin.value.salaireBrut}"</td>
+						<td>"${bulletin.value.netImposable}"</td>
+						<td>"${bulletin.value.netAPayer}"</td>
+						<td href="#">Visualiser</td>	
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+</div>

@@ -3,7 +3,6 @@ package dev.paie.service;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,8 +22,6 @@ import dev.paie.repository.ProfilRemunerationRepository;
 
 @Service
 public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
-
-	private List<Periode> periode;
 
 	@Autowired
 	private GradeRepository gradeRepository;
