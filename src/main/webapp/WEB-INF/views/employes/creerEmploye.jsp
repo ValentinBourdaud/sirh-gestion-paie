@@ -41,31 +41,31 @@ dist/css/bootstrap.css">
 			<div class="form-group">
 				<label for="matricule">Matricule</label>
 				<div class="col-4 offset-8">
-					<input type="text" class="form-control" id="matricule"
-						placeholder="Matricule" required="">
+					<form:input type="text" class="form-control" path="matricule"
+						placeholder="Matricule" required=""/>
 
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="entreprise">Entreprise</label>
-				<form:select path="entreprise"
-					items="${listeEntr}"/>	
+				<form:select path="entreprise.id"
+					items="${listeEntr}" itemValue="id"/>	
 				</div>
 	
 				<div class="form-group">
 						<label for="profil">Profil</label>
-						<form:select  path="profilRemuneration" items="${listeProfils}"/>	
+						<form:select  path="profilRemuneration.id" items="${listeProfils}" itemValue="id"/>	
 					</div>
 
 				<div class="form-group">
 						<label for="grade">Grade</label>
-						<form:select  path="grade" items="${listeGrades}"/>	
+						<form:select  path="grade.id" items="${listeGrades}" itemValue="id"/>	
 					</div>
 
 				<div class="row justify-content-end">
 					<div class="col-7 offset-5">
-						<button type="submit" class="btn btn-primary" id="ajouter">Ajouter</button>
+						<button type="submit" class="btn btn-info" id="creer">Ajouter</button>
 					</div>
 				</div>
 			</div>
