@@ -62,7 +62,7 @@ dist/css/bootstrap.css">
 						<td>"${bulletin.value.salaireBrut}"</td>
 						<td>"${bulletin.value.netImposable}"</td>
 						<td>"${bulletin.value.netAPayer}"</td>
-						<td href="#">Visualiser</td>	
+						<td><a href="<c:url value="/mvc/bulletins/lister/${bulletin.key.id}"/>">Visualiser</a></td>	
 					</tr>
 				</c:forEach>
 			</tbody>

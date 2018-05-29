@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,4 +69,12 @@ public class BulletinController {
 		return mv;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "/lister/{id}")
+	public ModelAndView visualiserBulletin(@PathVariable int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("bulletins/bulletin");
+		mv.addObject("bulletin", bulletinSalaireRepository.findOne(id));
+		return mv;
+
+	}
 }
