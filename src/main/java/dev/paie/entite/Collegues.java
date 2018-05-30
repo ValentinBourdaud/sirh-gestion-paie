@@ -1,7 +1,5 @@
 package dev.paie.entite;
 
-import java.util.List;
-
 import org.springframework.web.client.RestTemplate;
 
 public class Collegues {
@@ -15,7 +13,6 @@ public class Collegues {
 	private String adresse;
 	private String password;
 	private String photo;
-	private List<String> subalternes;
 	private String departement;
 
 	public void recupDonnees() {
@@ -93,14 +90,6 @@ public class Collegues {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
-	}
-
-	public List<String> getSubalternes() {
-		return subalternes;
-	}
-
-	public void setSubalternes(List<String> subalternes) {
-		this.subalternes = subalternes;
 	}
 
 	public String getDepartement() {
