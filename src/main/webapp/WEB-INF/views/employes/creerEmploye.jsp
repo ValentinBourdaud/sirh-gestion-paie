@@ -25,8 +25,8 @@ dist/css/bootstrap.css">
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
-				<a class="nav-item nav-link" href="<c:url value = "mvc/employes/creer"/>">Employes</a> <a
-					class="nav-item nav-link" href="<c:url value = "mvc/bulletins/creer"/>">Bulletins</a>
+				<a class="nav-item nav-link" href="<c:url value = "/mvc/employes/creer"/>">Employes</a> <a
+					class="nav-item nav-link" href="<c:url value = "/mvc/bulletins/creer"/>">Bulletins</a>
 			</div>
 		</div>
 	</nav>
