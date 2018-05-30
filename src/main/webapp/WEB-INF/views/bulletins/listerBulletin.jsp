@@ -56,12 +56,12 @@ dist/css/bootstrap.css">
 			<tbody>
 				<c:forEach items="${bulletins}" var="bulletin">
 					<tr>
-						<td>"${bulletin.key.dateCreation}"</td>
-						<td>"${bulletin.key.periode}"</td>
-						<td>"${bulletin.key.remunerationEmploye.matricule}"</td>
-						<td>"${bulletin.value.salaireBrut}"</td>
-						<td>"${bulletin.value.netImposable}"</td>
-						<td>"${bulletin.value.netAPayer}"</td>
+						<td>${bulletin.key.dateCreation}</td>
+						<td>${bulletin.key.periode}</td>
+						<td>${bulletin.key.remunerationEmploye.matricule}</td>
+						<td>${bulletin.value.salaireBrut}</td>
+						<td>${bulletin.value.netImposable}</td>
+						<td>${bulletin.value.netAPayer}</td>
 						<td><a href="<c:url value="/mvc/bulletins/lister/${bulletin.key.id}"/>">Visualiser</a></td>	
 					</tr>
 				</c:forEach>

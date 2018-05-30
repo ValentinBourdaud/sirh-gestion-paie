@@ -51,9 +51,9 @@ dist/css/bootstrap.css">
 			<tbody>
 				<c:forEach items="${remunerationEmploye}" var="remunerationEmploye">
 					<tr>
-						<td>"${remunerationEmploye.dateCreation}"</td>
-						<td>"${remunerationEmploye.matricule}"</td>
-						<td>"${remunerationEmploye.grade}"</td>
+						<td>${remunerationEmploye.dateCreation}</td>
+						<td>${remunerationEmploye.matricule}</td>
+						<td>"${remunerationEmploye.grade}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
