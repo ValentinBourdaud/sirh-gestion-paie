@@ -41,8 +41,8 @@ dist/css/bootstrap.css">
 			<div class="form-group">
 				<label for="matricule">Matricule</label>
 				<div class="col-4 offset-8">
-					<form:input type="text" class="form-control" path="matricule"
-						placeholder="Matricule" required=""/>
+					<form:select path="matricule" items="${matricules}" id="matricule"
+						class="form-control"/>
 
 				</div>
 			</div>
