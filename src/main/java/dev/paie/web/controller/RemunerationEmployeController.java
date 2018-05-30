@@ -1,6 +1,7 @@
 package dev.paie.web.controller;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.paie.entite.Collegues;
 import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
 import dev.paie.entite.ProfilRemuneration;
@@ -53,6 +56,13 @@ public class RemunerationEmployeController {
 		mv.addObject("listeEntr", listeEntr);
 		mv.addObject("listeProfils", listeProfils);
 
+		RestTemplate rt = new RestTemplate();
+		Collegues[] collegues = rt.getForObject("http://collegues-api.cleverapps.io/collegues", Collegues[].class, 1);
+		List<String> matricules = new ArrayList<>();
+		for (Collegues collegue : collegues) {
+			matricules.add(collegue.getMatricule());
+		}
+		mv.addObject("matricules", matricules);
 		return mv;
 	}
 
