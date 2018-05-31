@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,13 @@ public class CotisationApiController {
 	CotisationRepository cotisRepo;
 
 	@RequestMapping(method = RequestMethod.GET)
+	@Secured("ROLE_ADMINISTRATEUR")
 	public List<Cotisation> trouverToutesLesCotisations() {
 		return cotisRepo.findAll();
 	}
 
 	@RequestMapping(path = "/{code}", method = RequestMethod.GET)
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ResponseEntity findCotisationById(@PathVariable String code) {
 		Cotisation cot = cotisRepo.findByCode(code);
 		if (cot == null) {
@@ -41,11 +44,13 @@ public class CotisationApiController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
+	@Secured("ROLE_ADMINISTRATEUR")
 	public void insererCotisation(@RequestBody Cotisation cotisation) {
 		this.cotisRepo.save(cotisation);
 	}
 
 	@RequestMapping(path = "/{code}", method = RequestMethod.PUT)
+	@Secured("ROLE_ADMINISTRATEUR")
 	public void modifCotisation(@PathVariable String code, @RequestBody Cotisation cotisation) {
 		int id = cotisRepo.findByCode(code).getId();
 		cotisation.setId(id);
@@ -54,6 +59,7 @@ public class CotisationApiController {
 	}
 
 	@RequestMapping(path = "/{code}", method = RequestMethod.DELETE)
+	@Secured("ROLE_ADMINISTRATEUR")
 	public void supprimerCotisation(@PathVariable String code) {
 		int id = cotisRepo.findByCode(code).getId();
 		cotisRepo.delete(id);

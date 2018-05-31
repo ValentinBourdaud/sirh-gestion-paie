@@ -99,4 +99,15 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 
 	}
 
+	public Map<BulletinSalaire, ResultatCalculRemuneration> retourneResultat(BulletinSalaire bulletinSalaire) {
+
+		Map<BulletinSalaire, ResultatCalculRemuneration> resultat = new HashMap<BulletinSalaire, ResultatCalculRemuneration>();
+		BulletinSalaire bulletin = bulletinSalaireRepository.findOne(bulletinSalaire.getId());
+
+		resultat.put(bulletin, calculer(bulletin));
+
+		return resultat;
+
+	}
+
 }

@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +15,14 @@ import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
 import dev.paie.entite.Periode;
 import dev.paie.entite.ProfilRemuneration;
+import dev.paie.entite.Utilisateur;
+import dev.paie.entite.Utilisateur.ROLES;
 import dev.paie.repository.CotisationRepository;
 import dev.paie.repository.EntrepriseRepository;
 import dev.paie.repository.GradeRepository;
 import dev.paie.repository.PeriodeRepository;
 import dev.paie.repository.ProfilRemunerationRepository;
+import dev.paie.repository.UtilisateurRepository;
 
 @Service
 public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
@@ -38,10 +42,16 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	@Autowired
 	private ProfilRemunerationRepository profilRemunerationRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private UtilisateurRepository utilisateurRepository;
+
 	@Override
 	@Transactional
 	public void initialiser() {
-
+		listerUtilisateur();
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("init_config.xml");
 
 		Collection<Entreprise> entreprises = ctx.getBeansOfType(Entreprise.class).values();
@@ -71,8 +81,32 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 			periodeRepository.save(p);
 
 		}
+
+		String iciUnMotDePasse = "topSecret";
+		String iciMotDePasseHashe = this.passwordEncoder.encode(iciUnMotDePasse);
+
 		ctx.close();
 
+	}
+
+	public void listerUtilisateur() {
+
+		Utilisateur user1 = new Utilisateur();
+		Utilisateur user2 = new Utilisateur();
+
+		user1.setNomUtilisateur("robert");
+		user1.setMotDePasse(passwordEncoder.encode("lalala"));
+		user1.setEstActif(true);
+		user1.setRole(ROLES.ROLE_ADMINISTRATEUR);
+
+		utilisateurRepository.save(user1);
+
+		user2.setNomUtilisateur("toto");
+		user2.setMotDePasse(passwordEncoder.encode("lolilol"));
+		user2.setEstActif(true);
+		user2.setRole(ROLES.ROLE_UTILISATEUR);
+
+		utilisateurRepository.save(user2);
 	}
 
 }

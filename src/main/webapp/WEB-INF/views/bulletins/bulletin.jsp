@@ -32,7 +32,7 @@ dist/css/bootstrap.css">
 			</div>
 		</div>
 	</nav>
-
+<c:forEach var="bulletin" items="${bulletin}">
 	<div class="container">
 		<div class="text-center">
 			<h1>Bulletin de salaire</h1>
@@ -40,21 +40,21 @@ dist/css/bootstrap.css">
 
 		<div class="row">
 			<div class="col-sm-offset-6" style="margin-left: 80%">
-				<b>Période</b><br> ${bulletin.periode.dateDebut} au
-				${bulletin.periode.dateFin}<br> <br>
+				<b>Période</b><br> ${bulletin.key.periode.dateDebut} au
+				${bulletin.key.periode.dateFin}<br> <br>
 			</div>
 
 			<div class="col-sm-offset-6" style="margin-left: 80%">
-				<b>Matricule : ${bulletin.remunerationEmploye.matricule}</b><br>
+				<b>Matricule : ${bulletin.key.remunerationEmploye.matricule}</b><br>
 			</div>
 
 			<div class="#" style="margin-top: -5%">
 				<p>
 					<b>Entreprise</b>
 				</p>
-				<p style="text-transform: uppercase">${bulletin.remunerationEmploye.entreprise.denomination}</p>
+				<p style="text-transform: uppercase">${bulletin.key.remunerationEmploye.entreprise.denomination}</p>
 				<p style="text-transform: uppercase">siret :
-					${bulletin.remunerationEmploye.entreprise.siret}</p>
+					${bulletin.key.remunerationEmploye.entreprise.siret}</p>
 			</div>
 
 			<div style="margin-top: 5%">
@@ -76,9 +76,9 @@ dist/css/bootstrap.css">
 						<c:forEach items="bul" var="toc">
 							<tr>
 								<td>Salaire de base</td>
-								<td>${bulletin.remunerationEmploye.grade.nbHeuresBase}</td>
-								<td>${bulletin.remunerationEmploye.grade.tauxBase}</td>
-								<td>${bulletin.remunerationEmploye.grade.tauxBase.multiply(bulletin.remunerationEmploye.grade.nbHeuresBase)}</td>
+								<td>${bulletin.key.remunerationEmploye.grade.nbHeuresBase}</td>
+								<td>${bulletin.key.remunerationEmploye.grade.tauxBase}</td>
+								<td>${bulletin.key.remunerationEmploye.grade.tauxBase.multiply(bulletin.key.remunerationEmploye.grade.nbHeuresBase)}</td>
 								<td>...</td>
 								<td>...</td>
 							</tr>
@@ -86,7 +86,7 @@ dist/css/bootstrap.css">
 								<td>Prime Exceptionnelle</td>
 								<td>...</td>
 								<td>...</td>
-								<td>${bulletin.primeExceptionnelle}</td>
+								<td>${bulletin.key.primeExceptionnelle}</td>
 								<td>...</td>
 								<td>...</td>
 							</tr>
@@ -102,7 +102,7 @@ dist/css/bootstrap.css">
 								<td>Salaire Brut</td>
 								<td>...</td>
 								<td>...</td>
-								<td>${bulletin.primeExceptionnelle.add(bulletin.remunerationEmploye.grade.tauxBase.multiply(bulletin.remunerationEmploye.grade.nbHeuresBase))}</td>
+								<td>${bulletin.key.primeExceptionnelle.add(bulletin.key.remunerationEmploye.grade.tauxBase.multiply(bulletin.key.remunerationEmploye.grade.nbHeuresBase))}</td>
 								<td>...</td>
 								<td>...</td>
 							</tr>
@@ -127,20 +127,27 @@ dist/css/bootstrap.css">
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach var="cotisationNonImposable" items="${bulletin.key.remunerationEmploye.profilRemuneration.cotisationsNonImposables}">
+							<c:set var="montantSalarialCotisation"
+								value="${paieUtils.formaterBigDecimal(cotisationNonImposable.tauxSalarial * bulletin.value.salaireBrut)}" />
+							<c:set var="montantPatronalCotisation"
+								value="${paieUtils.formaterBigDecimal(cotisationNonImposable.tauxPatronal * bulletin.value.salaireBrut)}" />
+							<tr>
+								<td><c:out value="${cotisationNonImposable.code} ${cotisationNonImposable.libelle}" /></td>
+								<td><c:out value="${bulletin.value.salaireBrut}" /></td>
+								<td><c:out value="${cotisationNonImposable.tauxSalarial}" /></td>
+								<td><c:out value="${montantSalarialCotisation}" /></td>
+								<td><c:out value="${cotisationNonImposable.tauxPatronal}" /></td>
+								<td><c:out value="${montantPatronalCotisation}" /></td>
+							</tr>
+						</c:forEach>
 
-						<tr>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-							<td>...</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
 
-=			<div style="margin-top: 5%">
+		
+			<div style="margin-top: 5%">
 				<p>
 					<b>Net Imposables : </b>
 				</p>
@@ -174,6 +181,7 @@ dist/css/bootstrap.css">
 
 		</div>
 	</div>
+	</c:forEach>
 </body>
 
 </html>

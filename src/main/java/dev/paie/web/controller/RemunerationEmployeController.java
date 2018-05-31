@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,6 +41,7 @@ public class RemunerationEmployeController {
 	private RemunerationEmployeRepository remunerationEmployeRepository;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerEmploye(Model model) {
 
 		RemunerationEmploye remunerationEmploye = new RemunerationEmploye();
@@ -74,6 +76,7 @@ public class RemunerationEmployeController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_ADMINISTRATEUR", "ROLE_UTILISATEUR" })
 	public ModelAndView listerEmploye() {
 
 		ModelAndView mv = new ModelAndView();

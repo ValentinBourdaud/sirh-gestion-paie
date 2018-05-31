@@ -10,4 +10,6 @@ public interface CalculerRemunerationService {
 	ResultatCalculRemuneration calculer(BulletinSalaire bulletin);
 
 	Map<BulletinSalaire, ResultatCalculRemuneration> retourneResultat();
+
+	Map<BulletinSalaire, ResultatCalculRemuneration> retourneResultat(BulletinSalaire bulletinSalaire);
 }

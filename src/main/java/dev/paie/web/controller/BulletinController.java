@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +38,7 @@ public class BulletinController {
 	private BulletinSalaireRepository bulletinSalaireRepository;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView creerBulletin(Model model) {
 		BulletinSalaire bulletin = new BulletinSalaire();
 		model.addAttribute("bulletin", bulletin);
@@ -53,6 +55,7 @@ public class BulletinController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public String submitForm(@ModelAttribute("bulletin") BulletinSalaire bulletin) {
 		bulletin.setDateCreation(ZonedDateTime.now());
 		bulletinSalaireRepository.save(bulletin);
@@ -60,6 +63,7 @@ public class BulletinController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
+	@Secured({ "ROLE_UTILISATEUR", "ROLE_ADMINISTRATEUR" })
 	public ModelAndView listerBulletin() {
 
 		ModelAndView mv = new ModelAndView();
@@ -70,10 +74,11 @@ public class BulletinController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/lister/{id}")
+	@Secured("ROLE_ADMINISTRATEUR")
 	public ModelAndView visualiserBulletin(@PathVariable int id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bulletins/bulletin");
-		mv.addObject("bulletin", bulletinSalaireRepository.findOne(id));
+		mv.addObject("bulletin", remunerationService.retourneResultat(bulletinSalaireRepository.findOne(id)));
 		return mv;
 
 	}
